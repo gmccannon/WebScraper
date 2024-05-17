@@ -15,7 +15,7 @@ namespace WebScraper
             HtmlDocument htmlDoc = new HtmlDocument();
             
             StringWriter sw = new StringWriter();
-            FileStream fs = new FileStream("FileStream.xml", FileMode.Create);
+            FileStream fs = new FileStream("htmlOut.xml", FileMode.Create);
             XmlTextWriter xw = new XmlTextWriter(sw);
 
             try
