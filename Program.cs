@@ -10,7 +10,8 @@ namespace WebScraper
     {
         static async Task Main(string[] args)
         {
-            
+            var url = args[0];
+
             using HttpClient client = new HttpClient();
             HtmlDocument htmlDoc = new HtmlDocument();
             
@@ -20,9 +21,6 @@ namespace WebScraper
 
             try
             {
-                Console.WriteLine("Enter a URL to parse: ");
-                var url = Console.ReadLine();
-
                 var response = await client.GetStringAsync(url);
 
                 htmlDoc.LoadHtml(response);
