@@ -10,10 +10,15 @@ namespace WebScraper
     {
         static async Task Main(string[] args)
         {
+            if (args.Length != 1)
+            {
+                Console.WriteLine("Usage: dotnet run <url>");
+                return;
+            }
             var url = args[0];
 
-            using HttpClient client = new HttpClient();
-            HtmlDocument htmlDoc = new HtmlDocument();
+            var client = new HttpClient();
+            var htmlDoc = new HtmlDocument();
 
             try
             {
@@ -33,6 +38,14 @@ namespace WebScraper
             htmlDoc.Save(xw);
             htmlDoc.Save(fs); // also saving here for testing
 
+            var h1Node = htmlDoc.DocumentNode.SelectSingleNode("//title");
+		
+            h1Node.Attributes.Append("style");
+                    
+            h1Node.SetAttributeValue("asdfsadf", "color:blueeee");
+
+            FileStream newfs = new FileStream("newhtmlOut.xml", FileMode.Create);
+            htmlDoc.Save(newfs);
         }
     }
 }
