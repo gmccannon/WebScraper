@@ -38,11 +38,11 @@ namespace WebScraper
             htmlDoc.Save(xw);
             htmlDoc.Save(fs); // also saving here for testing
 
-            var h1Node = htmlDoc.DocumentNode.SelectSingleNode("//title");
+            var modNode = htmlDoc.DocumentNode.SelectSingleNode("//title");
 		
-            h1Node.Attributes.Append("style");
+            modNode.Attributes.Append("style");
                     
-            h1Node.SetAttributeValue("asdfsadf", "color:blueeee");
+            modNode.SetAttributeValue("asdfsadf", "color:blueeee");
 
             FileStream newfs = new FileStream("newhtmlOut.xml", FileMode.Create);
             htmlDoc.Save(newfs);

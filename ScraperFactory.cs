@@ -1,0 +1,6 @@
+namespace ScraperFactory
+{
+    class ScraperFactory
+    {
+    }
+}
