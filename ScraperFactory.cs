@@ -1,6 +1,0 @@
-namespace ScraperFactory
-{
-    class ScraperFactory
-    {
-    }
-}

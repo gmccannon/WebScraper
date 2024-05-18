@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Xml;
-using Scraper;
 
 namespace WebScraper
 {
@@ -13,7 +11,7 @@ namespace WebScraper
         {
             if (args.Length < 1 || args.Length > 2)
             {
-                Console.WriteLine("Usage: dotnet run <url> <output_file_name>");
+                Console.WriteLine("Usage: dotnet run <url> <output_file_name>(optional)");
                 return;
             }
             string url = args[0];
@@ -23,7 +21,6 @@ namespace WebScraper
             {
                 path = args[1];
             }
-
 
             HtmlDocument htmlDoc = await Scraper.HtmlScraper.Scrape(url);
             
