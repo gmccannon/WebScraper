@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Xml;
+using Scraper;
 
 namespace WebScraper
 {
@@ -10,42 +11,23 @@ namespace WebScraper
     {
         static async Task Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length < 1 || args.Length > 2)
             {
-                Console.WriteLine("Usage: dotnet run <url>");
+                Console.WriteLine("Usage: dotnet run <url> <output_file_name>");
                 return;
             }
-            var url = args[0];
+            string url = args[0];
 
-            var client = new HttpClient();
-            var htmlDoc = new HtmlDocument();
+            string path = "output.xml";
+            if (args.Length > 1)
+            {
+                path = args[1];
+            }
 
-            try
-            {
-                var response = await client.GetStringAsync(url);
-                htmlDoc.LoadHtml(response);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"The was an error with the request: {ex.Message}");
-            }
+
+            HtmlDocument htmlDoc = await Scraper.HtmlScraper.Scrape(url);
             
-            StringWriter sw = new StringWriter();
-            FileStream fs = new FileStream("htmlOut.xml", FileMode.Create);
-            XmlTextWriter xw = new XmlTextWriter(sw);
-
-            htmlDoc.OptionOutputAsXml = true; 
-            htmlDoc.Save(xw);
-            htmlDoc.Save(fs); // also saving here for testing
-
-            var modNode = htmlDoc.DocumentNode.SelectSingleNode("//title");
-		
-            modNode.Attributes.Append("style");
-                    
-            modNode.SetAttributeValue("asdfsadf", "color:blueeee");
-
-            FileStream newfs = new FileStream("newhtmlOut.xml", FileMode.Create);
-            htmlDoc.Save(newfs);
+            Writer.HtmlWriter.Write(htmlDoc, path);
         }
     }
 }
