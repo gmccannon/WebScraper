@@ -11,20 +11,18 @@ namespace WebScraper
         {
             if (args.Length < 1 || args.Length > 2)
             {
-                Console.WriteLine("Usage: dotnet run <url> <output_file_name>(optional)");
+                Console.WriteLine("Usage: dotnet run <url> <output_file_name(optional)>");
                 return;
             }
-            string url = args[0];
-
-            string path = "output.xml";
-            if (args.Length > 1)
-            {
-                path = args[1];
-            }
-
-            HtmlDocument htmlDoc = await Scraper.HtmlScraper.Scrape(url);
             
-            Writer.HtmlWriter.Write(htmlDoc, path);
+            string url = args[0];
+            string path = args.Length > 1 ? args[1] : "output.xml";
+
+            User.DocumentUser documentUser = User.DocumentUser.Instance;
+
+            await documentUser.Scrape(url);
+
+            documentUser.Write(path);
         }
     }
 }
